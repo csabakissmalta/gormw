@@ -70,7 +70,7 @@ func process(buf []byte) {
 	case '3':
 		headers := proto.GetHeaders(payload)
 		for k, elem := range headers {
-			Debug("Key:", string(k), "Value", string(elem))
+			Debug("Key:", string(k), "Value", []string(elem))
 		}
 		Debug(">> REPLAY")
 	}
