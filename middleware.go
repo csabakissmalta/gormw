@@ -56,15 +56,15 @@ func process(buf []byte) {
 	switch payloadType {
 	case '1':
 		// cntr++
-		Debug(">> REQUEST", string(reqID))
+		Debug(">> REQ", string(reqID))
 
 	case '2':
 		// cntr--
-		// Debug("<< RESPONSE", string(reqID))
+		Debug("<< RES", string(reqID))
 
-	case '3':
+	default:
 		// cntr++
-		Debug("------> ", payloadType)
+		Debug("------> ", string(reqID))
 	}
 }
 
