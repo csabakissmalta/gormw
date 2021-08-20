@@ -57,7 +57,7 @@ func process(buf []byte) {
 	case '1':
 		// cntr++
 		Debug(">> REQ", string(reqID))
-
+		os.Stdout.Write(encode(buf))
 	case '2':
 		// cntr--
 		Debug("<< RES", string(reqID))
@@ -73,4 +73,12 @@ func Debug(args ...interface{}) {
 		fmt.Fprint(os.Stderr, "[DEBUG][TOKEN-MOD] ")
 		fmt.Fprintln(os.Stderr, args...)
 	}
+}
+
+func encode(buf []byte) []byte {
+	dst := make([]byte, len(buf)*2+1)
+	hex.Encode(dst, buf)
+	dst[len(dst)-1] = '\n'
+
+	return dst
 }
