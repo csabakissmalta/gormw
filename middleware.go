@@ -62,7 +62,7 @@ func process(buf []byte) {
 		// Debug("-- ORIG RESP --")
 		if strings.Contains(string(req_path), "turboLogin") {
 			// Debug("<< REQ PATH", string(req_path))
-			cki := proto.Header(buf, []byte("Set-Cookie"))
+			cki := proto.Header(payload, []byte("Set-Cookie"))
 			// body := proto.Body(payload)
 			// scs := proto.Header(payload, []byte("Set-Cookie"))
 			Debug(">> ORIG COOKIE: ", string(cki))
