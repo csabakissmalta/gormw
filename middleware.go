@@ -62,7 +62,7 @@ func process(buf []byte) {
 		// cntr--
 		Debug("<< RES", string(reqID))
 
-	default:
+	case '3':
 		// cntr++
 		Debug("------> ", string(reqID))
 	}
