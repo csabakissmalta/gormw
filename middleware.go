@@ -50,13 +50,11 @@ func process(buf []byte) {
 	reqID := string(meta[1])
 	// payload := buf[headerSize:]
 
-	// Debug("---------------------------------")
-	// Debug("REPLAY", cntr)
-
 	switch payloadType {
 	case '1':
 		// cntr++
 		Debug(">> REQ", string(reqID))
+
 		os.Stdout.Write(encode(buf))
 	case '2':
 		// cntr--
