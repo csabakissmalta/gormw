@@ -14,6 +14,8 @@ var originalSessionIDs map[string][]string
 // originalToken -> replayedToken
 var replayedSessionIDs map[string][]string
 
+// var cntr int = 0
+
 func main() {
 	originalSessionIDs = make(map[string][]string)
 	replayedSessionIDs = make(map[string][]string)
@@ -28,6 +30,10 @@ func main() {
 		process(buf)
 	}
 }
+
+// func read_old_session_data(payload []byte) {
+
+// }
 
 func process(buf []byte) {
 	// First byte indicate payload type, possible values:
@@ -44,17 +50,21 @@ func process(buf []byte) {
 	reqID := string(meta[1])
 	// payload := buf[headerSize:]
 
-	Debug("---------------------------------")
+	// Debug("---------------------------------")
+	// Debug("REPLAY", cntr)
 
 	switch payloadType {
 	case '1':
+		// cntr++
 		Debug(">> REQUEST", string(reqID))
 
 	case '2':
-		Debug("<< RESPONSE", string(reqID))
+		// cntr--
+		// Debug("<< RESPONSE", string(reqID))
 
 	case '3':
-		Debug("REPLAY", string(reqID))
+		// cntr++
+		Debug("------> ", payloadType)
 	}
 }
 
