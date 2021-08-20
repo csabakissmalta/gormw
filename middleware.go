@@ -68,7 +68,7 @@ func process(buf []byte) {
 	case '3':
 		// body := proto.Body(payload)
 		scs := proto.Header(payload, []byte("Set-Cookie"))
-		Debug("<< REQ PATH", string(scs))
+		Debug(">> COOKIE: ", string(scs))
 	}
 }
 
