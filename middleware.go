@@ -69,7 +69,7 @@ func process(buf []byte) {
 		// Debug(">> ORIG COOKIE: ", string(cki))
 	case '3':
 		stat := proto.Status(payload)
-		hs := proto.GetHeaders(payload).Values("Location")
+		hs := proto.GetHeaders(payload).Values("Set-Cookie")
 		Debug(">> REPLAY ", string(stat), []string(hs))
 	}
 }
