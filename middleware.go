@@ -66,11 +66,11 @@ func process(buf []byte) {
 	case '2':
 		// Debug("-- ORIG RESP --")
 	case '3':
-		cki := proto.ParseHeaders(buf[:headerSize]).Values("Set-Cookie")
+		cki := proto.ParseHeaders(buf[:headerSize]).Get("Set-Cookie")
 
 		// body := proto.Body(payload)
 		// scs := proto.Header(payload, []byte("Set-Cookie"))
-		Debug(">> COOKIE: ", []string(cki), string(req_path))
+		Debug(">> COOKIE: ", string(cki))
 	}
 }
 
