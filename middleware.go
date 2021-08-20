@@ -57,14 +57,15 @@ func process(buf []byte) {
 		req_path := proto.Path(payload)
 		if strings.Contains(string(req_path), "turboLogin") {
 			// Debug("<< REQ PATH", string(req_path))
+			headers := proto.GetHeaders(payload)
+			for k, elem := range headers {
+				Debug("Key:", string(k), "Value", []string(elem))
+			}
 			os.Stdout.Write(encode(buf))
 		}
 
 	case '2':
-		headers := proto.GetHeaders(payload)
-		for k, elem := range headers {
-			Debug("Key:", string(k), "Value", []string(elem))
-		}
+
 	case '3':
 
 		Debug(">> REPLAY")
