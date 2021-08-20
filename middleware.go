@@ -60,15 +60,12 @@ func process(buf []byte) {
 			os.Stdout.Write(encode(buf))
 		}
 	case '2':
-		orig_payload := make([]byte, len(payload)/2)
-		hex.Decode(buf, payload)
-		Debug(">> ORIG COOKIE: ", []byte(orig_payload))
+
 	case '3':
-		headers := proto.GetHeaders(payload)
-		for k, elem := range headers {
-			Debug("Key:", string(k), "Value", []string(elem))
-		}
-		Debug(">> REPLAY")
+		resp_body := proto.Body(payload)
+		orig_payload := make([]byte, len(resp_body)/2)
+		hex.Decode(resp_body, payload)
+		Debug(">> ORIG COOKIE: ", []byte(orig_payload))
 	}
 }
 
