@@ -51,12 +51,12 @@ func process(buf []byte) {
 	// meta := bytes.Split(header, []byte(" "))
 	// reqID := string(meta[1])
 	payload := buf[headerSize:]
+	req_path := proto.Path(payload)
 
 	switch payloadType {
 	case '1':
 		// cntr++
 		// Debug(">> REQ", string(reqID))
-		req_path := proto.Path(payload)
 
 		if strings.Contains(string(req_path), "turboLogin") {
 			Debug("<< REQ PATH", string(req_path))
