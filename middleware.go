@@ -45,12 +45,11 @@ func process(buf []byte) {
 	//  3 - ReplayedResponse
 	payloadType := buf[0]
 	headerSize := bytes.IndexByte(buf, '\n') + 1
-	header := buf[:headerSize-1]
+	// header := buf[:headerSize-1]
 
 	// Header contains space separated values of: request type, request id, and request start time (or round-trip time for responses)
-	meta := bytes.Split(header, []byte(" "))
-	// For each request you should receive 3 payloads (request, response, replayed response) with same request id
-	reqID := string(meta[1])
+	// meta := bytes.Split(header, []byte(" "))
+	// reqID := string(meta[1])
 	payload := buf[headerSize:]
 
 	switch payloadType {
@@ -59,17 +58,16 @@ func process(buf []byte) {
 		// Debug(">> REQ", string(reqID))
 		req_path := proto.Path(payload)
 
-		if strings.Contains(string(req_path), "turboLogin") {
+		if !strings.Contains(string(req_path), "turboLogin") {
 			Debug("<< REQ PATH", string(req_path))
 		}
 
 		os.Stdout.Write(encode(buf))
 	case '2':
+		Debug("-- ORIG RESP --")
+	case '3':
 		body := proto.Body(payload)
 		Debug("<< REQ PATH", string(body))
-	case '3':
-		// cntr++
-		Debug("------> ", string(reqID))
 	}
 }
 
