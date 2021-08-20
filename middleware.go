@@ -68,10 +68,11 @@ func process(buf []byte) {
 		// scs := proto.Header(payload, []byte("Set-Cookie"))
 		Debug(">> ORIG COOKIE: ", string(cki))
 	case '3':
-		cki := proto.Header(payload, []byte("Set-Cookie"))
-		// body := proto.Body(payload)
-		// scs := proto.Header(payload, []byte("Set-Cookie"))
-		Debug(">> COOKIE: ", string(cki))
+		headers := proto.GetHeaders(payload)
+		for k, elem := range headers {
+			Debug("Key:", string(k), "Value", string(elem))
+		}
+		Debug(">> REPLAY")
 	}
 }
 
