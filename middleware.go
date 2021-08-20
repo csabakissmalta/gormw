@@ -62,17 +62,18 @@ func process(buf []byte) {
 		}
 
 	case '2':
-		hs := proto.ParseHeaders(payload)
-		for key, ele := range hs {
-			Debug(">> ORIG RESP:", string(key), ele)
-		}
-	case '3':
-		// stat := proto.Status(payload)
 		// hs := proto.ParseHeaders(payload)
 		// for key, ele := range hs {
-		// 	Debug(">> REPLAY ", string(key), ele)
+		// 	Debug(">> ORIG RESP:", string(key), ele)
 		// }
-
+	case '3':
+		// stat := proto.Status(payload)
+		hdr := proto.Header(payload, []byte("Access-Control-Request-Headers"))
+		hs := proto.ParseHeaders(payload)
+		for key, ele := range hs {
+			Debug(">> REPLAY ", string(key), ele)
+		}
+		Debug("HDR: ", string(hdr))
 		Debug("---------------- REPLAY ----------------")
 	}
 }
