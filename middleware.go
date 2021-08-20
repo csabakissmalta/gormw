@@ -59,13 +59,17 @@ func process(buf []byte) {
 			// Debug("<< REQ PATH", string(req_path))
 			os.Stdout.Write(encode(buf))
 		}
-	case '2':
 
+	case '2':
+		// // Debug("-- ORIG RESP --")
+		// // Debug("<< REQ PATH", string(req_path))
+		// cki := proto.Header(buf, []byte("Set-Cookie"))
+		// // body := proto.Body(payload)
+		// // scs := proto.Header(payload, []byte("Set-Cookie"))
+		// Debug(">> ORIG COOKIE: ", string(cki))
 	case '3':
-		resp_body := proto.Body(payload)
-		orig_payload := make([]byte, len(resp_body)/2)
-		hex.Decode(resp_body, payload)
-		Debug(">> ORIG COOKIE: ", []byte(orig_payload))
+		stat := proto.Status(payload)
+		Debug(">> REPLAY", string(stat))
 	}
 }
 
