@@ -55,15 +55,14 @@ func process(buf []byte) {
 	switch payloadType {
 	case '1':
 		// cntr++
-		Debug(">> REQ", string(reqID))
-
-		os.Stdout.Write(encode(buf))
-	case '2':
-		// body := proto.Body(payload)
+		// Debug(">> REQ", string(reqID))
 		req_path := proto.Path(payload)
 
-		Debug("<< RES", string(req_path))
-
+		Debug("<< REQ PATH", string(req_path))
+		os.Stdout.Write(encode(buf))
+	case '2':
+		body := proto.Body(payload)
+		Debug("<< REQ PATH", string(body))
 	case '3':
 		// cntr++
 		Debug("------> ", string(reqID))
