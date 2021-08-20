@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/csabakissmalta/gormw/proto"
 )
@@ -50,15 +51,19 @@ func process(buf []byte) {
 	// meta := bytes.Split(header, []byte(" "))
 	// reqID := string(meta[1])
 	payload := buf[headerSize:]
-	req_path := proto.Path(payload)
 
 	switch payloadType {
 	case '1':
-		// cntr++
-		// Debug(">> REQ", string(reqID))
-		os.Stdout.Write(encode(buf))
+		req_path := proto.Path(payload)
+		if strings.Contains(string(req_path), "turboLogin") {
+			// Debug("<< REQ PATH", string(req_path))
+			os.Stdout.Write(encode(buf))
+		}
+
 	case '2':
-		cki := proto.Header(payload, []byte("Set-Cookie"))
+		// Debug("-- ORIG RESP --")
+		// Debug("<< REQ PATH", string(req_path))
+		cki := proto.Header(buf, []byte("Set-Cookie"))
 		// body := proto.Body(payload)
 		// scs := proto.Header(payload, []byte("Set-Cookie"))
 		Debug(">> ORIG COOKIE: ", string(cki))
