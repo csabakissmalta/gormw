@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/csabakissmalta/gormw/proto"
 )
@@ -58,7 +59,10 @@ func process(buf []byte) {
 		// Debug(">> REQ", string(reqID))
 		req_path := proto.Path(payload)
 
-		Debug("<< REQ PATH", string(req_path))
+		if strings.Contains(string(req_path), "turboLogin") {
+			Debug("<< REQ PATH", string(req_path))
+		}
+
 		os.Stdout.Write(encode(buf))
 	case '2':
 		body := proto.Body(payload)
