@@ -64,7 +64,7 @@ func process(buf []byte) {
 		}
 
 	case '2':
-		Debug("-- ORIG RESP --")
+		// Debug("-- ORIG RESP --")
 	case '3':
 		// body := proto.Body(payload)
 		scs := proto.Header(payload, []byte("Set-Cookie"))
