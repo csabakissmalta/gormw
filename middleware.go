@@ -59,9 +59,10 @@ func process(buf []byte) {
 
 		os.Stdout.Write(encode(buf))
 	case '2':
-		body := proto.Body(payload)
+		// body := proto.Body(payload)
+		req_path := proto.Path(payload)
 
-		Debug("<< RES", string(body))
+		Debug("<< RES", string(req_path))
 
 	case '3':
 		// cntr++
