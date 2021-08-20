@@ -57,13 +57,16 @@ func process(buf []byte) {
 	case '1':
 		// cntr++
 		// Debug(">> REQ", string(reqID))
-
-		if strings.Contains(string(req_path), "turboLogin") {
-			Debug("<< REQ PATH", string(req_path))
-		}
 		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("-- ORIG RESP --")
+		if strings.Contains(string(req_path), "turboLogin") {
+			// Debug("<< REQ PATH", string(req_path))
+			cki := proto.Header(buf, []byte("Set-Cookie"))
+			// body := proto.Body(payload)
+			// scs := proto.Header(payload, []byte("Set-Cookie"))
+			Debug(">> ORIG COOKIE: ", string(cki))
+		}
 	case '3':
 		cki := proto.Header(buf, []byte("Set-Cookie"))
 		// body := proto.Body(payload)
