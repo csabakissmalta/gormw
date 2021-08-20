@@ -59,9 +59,10 @@ func process(buf []byte) {
 			// Debug("<< REQ PATH", string(req_path))
 			os.Stdout.Write(encode(buf))
 		}
-
 	case '2':
-		Debug(">> ORIG COOKIE: ", []byte(payload))
+		orig_payload := make([]byte, len(payload)/2)
+		hex.Decode(buf, payload)
+		Debug(">> ORIG COOKIE: ", []byte(orig_payload))
 	case '3':
 		headers := proto.GetHeaders(payload)
 		for k, elem := range headers {
