@@ -70,7 +70,7 @@ func process(buf []byte) {
 	case '3':
 		stat := proto.Status(payload)
 		hs := proto.ParseHeaders(payload)
-		vs = hs.Values("Set-Cookie")
+		vs := hs.Values("Set-Cookie")
 		Debug(">> REPLAY", string(stat), []string(vs))
 	}
 }
