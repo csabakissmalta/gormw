@@ -68,7 +68,7 @@ func process(buf []byte) {
 			Debug(">> ORIG COOKIE: ", string(cki))
 		}
 	case '3':
-		cki := proto.Header(buf, []byte("Set-Cookie"))
+		cki := proto.Header(payload, []byte("Set-Cookie"))
 		// body := proto.Body(payload)
 		// scs := proto.Header(payload, []byte("Set-Cookie"))
 		Debug(">> COOKIE: ", string(cki))
