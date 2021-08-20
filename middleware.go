@@ -70,6 +70,10 @@ func process(buf []byte) {
 	case '3':
 		stat := proto.Status(payload)
 		hs := proto.ParseHeaders(payload)
+		for key, ele := range hs {
+			Debug(">> REPLAY ", string(key), ele)
+		}
+
 		Debug(">> REPLAY ", string(stat), []string(hs.Values("Location")))
 	}
 }
