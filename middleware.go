@@ -69,13 +69,14 @@ func process(buf []byte) {
 		// Debug(">> ORIG COOKIE: ", string(cki))
 	case '3':
 		stat := proto.Status(payload)
-		hs := proto.ParseHeaders(payload).Get("Set-Cookie")
-		Debug(">> REPLAY ", string(stat), string(hs))
+		hs := proto.GetHeaders(payload).Values("Location")
+		Debug(">> REPLAY ", string(stat), []string(hs))
 	}
 }
 
+// --------------------------------------------------------------------------
 func Debug(args ...interface{}) {
-	if os.Getenv("GOR_TEST") == "" { // if we are not testing
+	if os.Getenv("GOR_TEST") == "" {
 		fmt.Fprint(os.Stderr, "[DEBUG][TOKEN-MOD] ")
 		fmt.Fprintln(os.Stderr, args...)
 	}
