@@ -1,5 +1,5 @@
 // Package byteutils provides helpers for working with byte slices
-package utils
+package byteutils
 
 import (
 	"unsafe"

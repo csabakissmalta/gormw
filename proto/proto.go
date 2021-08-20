@@ -14,7 +14,7 @@ Example of HTTP payload for future references, new line symbols escaped:
 	\r\n
 	\r\n
 */
-package utils
+package proto
 
 import (
 	"bufio"
@@ -24,7 +24,7 @@ import (
 	"net/textproto"
 	"strings"
 
-	"github.com/buger/goreplay/byteutils"
+	"github.com/csabakissmalta/gormw/byteutils"
 )
 
 // CRLF In HTTP newline defined by 2 bytes (for both windows and *nix support)

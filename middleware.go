@@ -6,6 +6,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"os"
+
+	"github.com/csabakissmalta/gormw/proto"
 )
 
 // requestID -> originalToken
@@ -48,7 +50,7 @@ func process(buf []byte) {
 	meta := bytes.Split(header, []byte(" "))
 	// For each request you should receive 3 payloads (request, response, replayed response) with same request id
 	reqID := string(meta[1])
-	// payload := buf[headerSize:]
+	payload := buf[headerSize:]
 
 	switch payloadType {
 	case '1':
@@ -57,8 +59,9 @@ func process(buf []byte) {
 
 		os.Stdout.Write(encode(buf))
 	case '2':
-		// cntr--
-		Debug("<< RES", string(reqID))
+		body := proto.Body(payload)
+
+		Debug("<< RES", string(body))
 
 	case '3':
 		// cntr++
