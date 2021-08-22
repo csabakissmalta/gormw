@@ -61,7 +61,7 @@ func process(buf []byte) {
 				if key == "Set-Cookie" {
 					Debug("---- Found the old cookies ----", ele)
 				}
-				Debug(">> REPLAY ", string(key), ele)
+				// Debug(">> REPLAY ", string(key), ele)
 			}
 			// Debug("<< REQ PATH", string(req_path))
 			os.Stdout.Write(encode(buf))
