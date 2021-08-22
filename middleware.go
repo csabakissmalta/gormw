@@ -98,7 +98,7 @@ func process(buf []byte) {
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						sessionIDs[string(resp)] = value
-						Debug("--- GETTING NEW COOKIE: ", value)
+						Debug("--- GETTING NEW COOKIE: ", sessionIDs)
 					}
 				}
 			}
