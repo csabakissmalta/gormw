@@ -94,7 +94,7 @@ func process(buf []byte) {
 
 		for key, ele := range hs {
 			if key == "Cookie" {
-				// Debug("-> Not a turboLogin", string(req_path))
+				Debug("-> Not a turboLogin", string(req_path))
 				// Debug(string(resp))
 				// if len(resp) > 11 {
 				// if value, ok := sessionIDs[string(resp)]; ok {
@@ -137,7 +137,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = old_to_new{new: ele}
 				}
 			}
-			Debug(":: Status: ", string(proto.Status(payload)))
+			// Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
