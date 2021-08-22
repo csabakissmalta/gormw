@@ -124,6 +124,7 @@ func process(buf []byte) {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
 					sessionIDs[reqID] = old_to_new{old: resp}
+					Debug(sessionIDs[reqID])
 				}
 			}
 		}
