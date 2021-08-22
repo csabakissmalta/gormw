@@ -70,6 +70,7 @@ func process(buf []byte) {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						// set the new header
 						new_cookie := create_cookie_value_from_list(value)
+						Debug(new_cookie)
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					}
 				}
