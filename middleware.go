@@ -12,16 +12,12 @@ import (
 )
 
 // requestID -> originalToken
-var originalSessionIDs map[string][]string
-
-// originalToken -> replayedToken
-var replayedSessionIDs map[string][]string
+var sessionIDs map[string][]string
 
 // var cntr int = 0
 
 func main() {
-	originalSessionIDs = make(map[string][]string)
-	replayedSessionIDs = make(map[string][]string)
+	sessionIDs = make(map[string][]string)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -34,15 +30,17 @@ func main() {
 	}
 }
 
-// func read_old_session_data(payload []byte) {
-
-// }
+func get_session_id(ele []string) (response *string) {
+	for _, v := range ele {
+		if strings.Contains(v, "SESSION_ID") {
+			ret := v
+			return &ret
+		}
+	}
+	return nil
+}
 
 func process(buf []byte) {
-	// First byte indicate payload type, possible values:
-	//  1 - Request
-	//  2 - Response
-	//  3 - ReplayedResponse
 	payloadType := buf[0]
 	headerSize := bytes.IndexByte(buf, '\n') + 1
 	// header := buf[:headerSize-1]
@@ -54,33 +52,30 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
-		req_path := proto.Path(payload)
-		if strings.Contains(string(req_path), "turboLogin") {
-
-			// Debug("<< REQ PATH", string(req_path))
-			os.Stdout.Write(encode(buf))
-		}
-
+		os.Stdout.Write(encode(buf))
 	case '2':
 		Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
-				Debug("---- Found the ORIGINAL cookies ----", ele)
+				resp := get_session_id(ele)
+				if resp != nil {
+					sessionIDs[*resp] = nil
+				}
 			}
-			// Debug(">> REPLAY ", string(key), ele)
 		}
-		// os.Stdout.Write(encode(buf))
-		// hs := proto.ParseHeaders(payload)
-		// for key, ele := range hs {
-		// 	Debug(">> ORIG RESP:", string(key), ele)
-		// }
 	case '3':
-		// stat := proto.Status(payload)
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
-				Debug("<<<< Found the REPLAIED cookies <<<<", ele)
+				resp := get_session_id(ele)
+				if resp != nil {
+					if value, ok := sessionIDs[*resp]; ok {
+						fmt.Println("value: ", value)
+					} else {
+						fmt.Println("key not found")
+					}
+				}
 			}
 		}
 		Debug("---------------- REPLAY ----------------")
