@@ -76,7 +76,7 @@ func process(buf []byte) {
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Cookie" {
-				resp := get_session_id_from_cookie(ele[0])
+				resp := get_session_id(ele)
 				Debug(string(resp))
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
