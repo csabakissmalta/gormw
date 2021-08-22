@@ -89,7 +89,7 @@ func process(buf []byte) {
 	switch payloadType {
 	case '1':
 		if strings.Contains(string(req_path), "urboLogin") {
-			sessionIDs[reqID] = old_to_new{}
+			sessionIDs[reqID] = *new(old_to_new)
 			// Debug(string(body))
 		}
 
