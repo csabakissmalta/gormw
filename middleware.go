@@ -101,7 +101,7 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
-					// Debug(string(resp))
+					Debug(string(resp))
 					sessionIDs[string(resp)] = []string{}
 				}
 			}
@@ -111,10 +111,11 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
+				// Debug("--- GETTING NEW COOKIE: ", resp)
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						sessionIDs[string(resp)] = value
-						Debug("--- GETTING NEW COOKIE: ", value)
+						// Debug("--- GETTING NEW COOKIE: ", value)
 					}
 				}
 			}
