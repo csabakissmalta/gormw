@@ -81,9 +81,10 @@ func process(buf []byte) {
 	reqID := string(meta[1])
 	payload := buf[headerSize:]
 
+	hs := proto.ParseHeaders(payload)
+
 	switch payloadType {
 	case '1':
-		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
@@ -109,18 +110,17 @@ func process(buf []byte) {
 		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
-		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 11 {
-					// Debug(string(resp))
+					Debug("- - - - - - - - - - - - ", string(resp))
 					sessionIDs[reqID] = old_to_new{old: resp}
+					Debug("+ + + + + + + + + + + + ", string(resp))
 				}
 			}
 		}
 	case '3':
-		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				// resp := get_session_id(ele)
