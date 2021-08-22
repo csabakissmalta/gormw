@@ -83,9 +83,10 @@ func process(buf []byte) {
 
 	hs := proto.ParseHeaders(payload)
 
+	req_path := proto.Path(payload)
+
 	switch payloadType {
 	case '1':
-		req_path := proto.Path(payload)
 		if strings.Contains(string(req_path), "turboLogin") {
 			sessionIDs[reqID] = old_to_new{}
 			Debug(string(reqID))
@@ -121,11 +122,8 @@ func process(buf []byte) {
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
-					if len(resp) > 11 {
-						// Debug("- - - - - - - - - - - - ", string(resp))
-						sessionIDs[reqID] = old_to_new{old: resp}
-						Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
-					}
+					sessionIDs[reqID] = old_to_new{old: resp}
+					Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
 				}
 			}
 		}
