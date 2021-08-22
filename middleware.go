@@ -116,7 +116,6 @@ func process(buf []byte) {
 				if len(resp) > 11 {
 					Debug("- - - - - - - - - - - - ", string(resp))
 					sessionIDs[reqID] = old_to_new{old: resp}
-					Debug("+ + + + + + + + + + + + ", sessionIDs[reqID])
 				}
 			}
 		}
@@ -125,11 +124,13 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				// resp := get_session_id(ele)
 				// Debug("--- :REQ ID ", sessionIDs)
-				ridval, exist := sessionIDs[reqID]
-				if exist {
-					Debug("--- GETTING NEW COOKIE: ", ridval)
-					ridval.new = ele
-				}
+				// ridval, exist := sessionIDs[reqID]
+				// if exist {
+				Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+				Debug("= = = = = = = = = = = ", ele)
+				// Debug("--- GETTING NEW COOKIE: ", ridval)
+				// ridval.new = ele
+				// }
 			}
 		}
 		// Debug(":: Status: ", string(proto.Status(payload)))
