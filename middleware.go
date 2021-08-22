@@ -104,15 +104,15 @@ func process(buf []byte) {
 				// 	Debug("--- NC: ", new_cookie)
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
-				// for _, val := range sessionIDs {
-				// 	Debug(val.new)
-				// 	// if strings.Compare(val.old, resp) == 0 {
-				// 	// 	new_cookie := create_cookie_value_from_list(val.new)
-				// 	// 	Debug("--- NC: ", new_cookie)
-				// 	// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-				// 	// }
-				// }
-				// }
+				for _, val := range sessionIDs {
+					Debug(val.new)
+					// 	// if strings.Compare(val.old, resp) == 0 {
+					// 	// 	new_cookie := create_cookie_value_from_list(val.new)
+					// 	// 	Debug("--- NC: ", new_cookie)
+					// 	// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+					// 	// }
+					// }
+				}
 			}
 		}
 		os.Stdout.Write(encode(buf))
@@ -130,11 +130,9 @@ func process(buf []byte) {
 		os.Stdout.Write(encode(buf))
 	case '3':
 		if _, ok := sessionIDs[reqID]; ok {
-			for key, _ := range hs {
+			for key, ele := range hs {
 				if key == "Set-Cookie" {
-					// resp := get_session_id(ele)
-					// Debug("--- :REQ ID ", sessionIDs)
-					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+					sessionIDs[reqID] = old_to_new{new: ele}
 				}
 			}
 			// Debug(":: Status: ", string(proto.Status(payload)))
