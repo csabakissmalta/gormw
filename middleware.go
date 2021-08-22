@@ -87,7 +87,7 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
-				Debug(string(resp))
+				// Debug(string(resp))
 				if len(resp) > 4 {
 					// if value, ok := sessionIDs[string(resp)]; ok {
 					// 	// set the new header
@@ -96,7 +96,9 @@ func process(buf []byte) {
 					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					// }
 					for _, val := range sessionIDs {
+						Debug(val.old)
 						if val.old == resp {
+
 							new_cookie := create_cookie_value_from_list(val.new)
 							Debug("--- NC: ", new_cookie)
 							proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
