@@ -38,7 +38,7 @@ func main() {
 func get_session_id(ele []string) string {
 	for _, v := range ele {
 		if strings.Contains(v, "SESSION_ID") {
-			// Debug("::: SESSION_ID", v)
+			Debug("::: SESSION_ID", v)
 			clean_raw_v := strings.Split(v, ";")[0]
 			return clean_raw_v
 		}
@@ -118,9 +118,8 @@ func process(buf []byte) {
 		}
 		// os.Stdout.Write(encode(buf))
 	case '2':
-		Debug("ORIG_REQUEST ID: ", string(reqID))
-		if v, ok := sessionIDs[reqID]; ok {
-			Debug("---- REQ PATH", req_path, v)
+		// Debug("ORIG_REQUEST ID: ", string(reqID))
+		if _, ok := sessionIDs[reqID]; ok {
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
@@ -135,7 +134,7 @@ func process(buf []byte) {
 				if key == "Set-Cookie" {
 					// resp := get_session_id(ele)
 					// Debug("--- :REQ ID ", sessionIDs)
-					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+					// Debug("x x x x x x x x x x x ", sessionIDs[reqID])
 				}
 			}
 			// Debug(":: Status: ", string(proto.Status(payload)))
