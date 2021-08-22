@@ -85,7 +85,11 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
-		// Debug("- - - - - - - - - - - ", reqID)
+		req_path := proto.Path(payload)
+		if strings.Contains(string(req_path), "turboLogin") {
+			sessionIDs[reqID] = old_to_new{}
+		}
+
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
@@ -123,22 +127,20 @@ func process(buf []byte) {
 				}
 			}
 		}
-		os.Stdout.Write(encode(buf))
+		// os.Stdout.Write(encode(buf))
 	case '3':
-		// Debug("x x x x x x x x x x x ", reqID)
-		// Debug("= = = = = = = = = = = ", ele)
 		// if _, ok := sessionIDs[reqID]; ok {
 		for key, _ := range hs {
 			if key == "Set-Cookie" {
 				// resp := get_session_id(ele)
 				// Debug("--- :REQ ID ", sessionIDs)
-				// ridval, exist := sessionIDs[reqID]
-				// if exist {
-				Debug("x x x x x x x x x x x ", sessionIDs[reqID])
-				// Debug("= = = = = = = = = = = ", ele)
-				// Debug("--- GETTING NEW COOKIE: ", ridval)
-				// ridval.new = ele
-				// }
+				_, exist := sessionIDs[reqID]
+				if exist {
+					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+					// Debug("= = = = = = = = = = = ", ele)
+					// Debug("--- GETTING NEW COOKIE: ", ridval)
+					// ridval.new = ele
+				}
 			}
 		}
 		// Debug(":: Status: ", string(proto.Status(payload)))
