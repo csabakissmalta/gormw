@@ -82,7 +82,7 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
-
+				Debug(string(resp))
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						// set the new header
