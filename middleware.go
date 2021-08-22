@@ -82,7 +82,7 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
-
+				Debug(string(resp))
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						// set the new header
@@ -102,7 +102,7 @@ func process(buf []byte) {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
 					// Debug(string(resp))
-					sessionIDs[reqID] = []string{}
+					sessionIDs[reqID] = ele
 				}
 			}
 		}
@@ -114,7 +114,7 @@ func process(buf []byte) {
 				// Debug("--- GETTING NEW COOKIE: ", resp)
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[reqID]; ok {
-						sessionIDs[string(resp)] = value
+						sessionIDs[reqID] = value
 						// Debug("--- GETTING NEW COOKIE: ", value)
 					}
 				}
