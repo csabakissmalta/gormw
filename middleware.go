@@ -96,13 +96,12 @@ func process(buf []byte) {
 					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					// }
 					for _, val := range sessionIDs {
-						Debug(val.old)
-						if strings.Compare(val.old, resp) == 0 {
-
-							new_cookie := create_cookie_value_from_list(val.new)
-							Debug("--- NC: ", new_cookie)
-							proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-						}
+						Debug(val.new)
+						// if strings.Compare(val.old, resp) == 0 {
+						// 	new_cookie := create_cookie_value_from_list(val.new)
+						// 	Debug("--- NC: ", new_cookie)
+						// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+						// }
 					}
 				}
 			}
