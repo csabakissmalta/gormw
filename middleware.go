@@ -124,7 +124,7 @@ func process(buf []byte) {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
 					sessionIDs[reqID] = old_to_new{old: resp}
-					Debug(sessionIDs[reqID])
+					// Debug(sessionIDs[reqID])
 				}
 			}
 		}
@@ -135,7 +135,7 @@ func process(buf []byte) {
 				if key == "Set-Cookie" {
 					// resp := get_session_id(ele)
 					// Debug("--- :REQ ID ", sessionIDs)
-					// Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
 				}
 			}
 			// Debug(":: Status: ", string(proto.Status(payload)))
