@@ -33,7 +33,7 @@ func main() {
 func get_session_id(ele []string) string {
 	for _, v := range ele {
 		if strings.Contains(v, "SESSION_ID") {
-			Debug("::: SESSION_ID", v)
+			// Debug("::: SESSION_ID", v)
 			return v
 		}
 	}
@@ -76,7 +76,7 @@ func process(buf []byte) {
 		}
 		os.Stdout.Write(encode(buf))
 	case '2':
-		Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
+		// Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
@@ -98,7 +98,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		Debug("---------------- REPLAY ----------------")
+		Debug(":: Status: ", proto.Status(payload))
 	}
 }
 
