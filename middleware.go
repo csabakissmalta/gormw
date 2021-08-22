@@ -115,7 +115,7 @@ func process(buf []byte) {
 				// }
 			}
 		}
-		// os.Stdout.Write(encode(buf))
+		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if _, ok := sessionIDs[reqID]; ok {
@@ -127,7 +127,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		// os.Stdout.Write(encode(buf))
+		os.Stdout.Write(encode(buf))
 	case '3':
 		Debug("::: SESSION_ID", sessionIDs)
 		if _, ok := sessionIDs[reqID]; ok {
