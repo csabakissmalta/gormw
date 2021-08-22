@@ -103,10 +103,8 @@ func process(buf []byte) {
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
 				resp := get_session_id_from_cookie(ele)
-				Debug(string(resp))
 				for _, val := range sessionIDs {
-					// Debug(val.new)
-
+					Debug("compare oldvals : ", strings.Compare(val.old, resp))
 					if strings.Compare(val.old, resp) == 0 {
 						new_cookie := create_cookie_value_from_list(val.new)
 						// Debug("--- NC: ", new_cookie)
