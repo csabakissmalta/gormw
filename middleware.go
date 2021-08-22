@@ -85,6 +85,7 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
+		Debug("- - - - - - - - - - - ", reqID)
 		for key, ele := range hs {
 			if key == "Cookie" {
 				resp := get_session_id_from_cookie(ele)
