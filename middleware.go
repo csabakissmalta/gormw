@@ -129,7 +129,6 @@ func process(buf []byte) {
 		}
 		os.Stdout.Write(encode(buf))
 	case '3':
-		Debug("::: SESSION_ID", sessionIDs)
 		if _, ok := sessionIDs[reqID]; ok {
 			for key, _ := range hs {
 				if key == "Set-Cookie" {
