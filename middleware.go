@@ -118,7 +118,7 @@ func process(buf []byte) {
 		}
 		// os.Stdout.Write(encode(buf))
 	case '2':
-		Debug("ORIG_REQUEST ID: ", reqID)
+		Debug("ORIG_REQUEST ID: ", sessionIDs)
 		if v, ok := sessionIDs[reqID]; ok {
 			Debug("---- REQ PATH", req_path, v)
 			for key, ele := range hs {
