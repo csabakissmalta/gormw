@@ -98,7 +98,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		Debug(":: Status: ", proto.Status(payload))
+		Debug(":: Status: ", string(proto.Status(payload)))
 	}
 }
 
