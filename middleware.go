@@ -122,23 +122,23 @@ func process(buf []byte) {
 			}
 		}
 	case '3':
-		if _, ok := sessionIDs[reqID]; ok {
-			for key, ele := range hs {
-				if key == "Set-Cookie" {
-					// resp := get_session_id(ele)
-					// Debug("--- :REQ ID ", sessionIDs)
-					// ridval, exist := sessionIDs[reqID]
-					// if exist {
-					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
-					Debug("= = = = = = = = = = = ", ele)
-					// Debug("--- GETTING NEW COOKIE: ", ridval)
-					// ridval.new = ele
-					// }
-				}
+		// if _, ok := sessionIDs[reqID]; ok {
+		for key, ele := range hs {
+			if key == "Set-Cookie" {
+				// resp := get_session_id(ele)
+				// Debug("--- :REQ ID ", sessionIDs)
+				// ridval, exist := sessionIDs[reqID]
+				// if exist {
+				Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+				Debug("= = = = = = = = = = = ", ele)
+				// Debug("--- GETTING NEW COOKIE: ", ridval)
+				// ridval.new = ele
+				// }
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
 		}
+		// Debug(":: Status: ", string(proto.Status(payload)))
 	}
+	// }
 }
 
 // --------------------------------------------------------------------------
