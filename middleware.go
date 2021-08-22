@@ -84,7 +84,7 @@ func process(buf []byte) {
 	hs := proto.ParseHeaders(payload)
 
 	req_path := proto.Path(payload)
-	body := proto.Body(payload)
+	// body := proto.Body(payload)
 
 	switch payloadType {
 	case '1':
