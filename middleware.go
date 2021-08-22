@@ -89,29 +89,30 @@ func process(buf []byte) {
 	case '1':
 		if strings.Contains(string(req_path), "turboLogin") {
 			sessionIDs[reqID] = old_to_new{}
-			Debug(string(reqID))
+			Debug(sessionIDs[reqID])
 		}
 
-		for key, ele := range hs {
+		for key, _ := range hs {
 			if key == "Cookie" {
-				resp := get_session_id_from_cookie(ele)
+				Debug("-> Not a turboLogin", req_path)
+				// resp := get_session_id_from_cookie(ele)
 				// Debug(string(resp))
-				if len(resp) > 11 {
-					// if value, ok := sessionIDs[string(resp)]; ok {
-					// 	// set the new header
-					// 	new_cookie := create_cookie_value_from_list(value)
-					// 	Debug("--- NC: ", new_cookie)
-					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-					// }
-					// for _, val := range sessionIDs {
-					// 	Debug(val.new)
-					// 	// if strings.Compare(val.old, resp) == 0 {
-					// 	// 	new_cookie := create_cookie_value_from_list(val.new)
-					// 	// 	Debug("--- NC: ", new_cookie)
-					// 	// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-					// 	// }
-					// }
-				}
+				// if len(resp) > 11 {
+				// if value, ok := sessionIDs[string(resp)]; ok {
+				// 	// set the new header
+				// 	new_cookie := create_cookie_value_from_list(value)
+				// 	Debug("--- NC: ", new_cookie)
+				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+				// }
+				// for _, val := range sessionIDs {
+				// 	Debug(val.new)
+				// 	// if strings.Compare(val.old, resp) == 0 {
+				// 	// 	new_cookie := create_cookie_value_from_list(val.new)
+				// 	// 	Debug("--- NC: ", new_cookie)
+				// 	// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+				// 	// }
+				// }
+				// }
 			}
 		}
 		os.Stdout.Write(encode(buf))
