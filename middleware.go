@@ -84,6 +84,7 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
+					Debug(string(resp))
 					sessionIDs[string(resp)] = *new([]string)
 				}
 			}
@@ -100,7 +101,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		Debug(":: Status: ", string(proto.Status(payload)))
+		// Debug(":: Status: ", string(proto.Status(payload)))
 	}
 }
 
