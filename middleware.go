@@ -70,7 +70,7 @@ func process(buf []byte) {
 			}
 			// Debug(">> REPLAY ", string(key), ele)
 		}
-		os.Stdout.Write(encode(buf))
+		// os.Stdout.Write(encode(buf))
 		// hs := proto.ParseHeaders(payload)
 		// for key, ele := range hs {
 		// 	Debug(">> ORIG RESP:", string(key), ele)
