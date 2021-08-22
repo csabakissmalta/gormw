@@ -69,7 +69,8 @@ func process(buf []byte) {
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						// set the new header
-						proto.SetHeader(payload, []byte("Cookie"), []byte(create_cookie_value_from_list(value)))
+						new_cookie := create_cookie_value_from_list(value)
+						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					}
 				}
 			}
