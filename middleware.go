@@ -12,12 +12,12 @@ import (
 )
 
 // requestID -> originalToken
-var sessionIDs map[string][]string
+var sessionIDs map[string]string
 
 // var cntr int = 0
 
 func main() {
-	sessionIDs = make(map[string][]string)
+	sessionIDs = make(map[string]string)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -60,7 +60,7 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
-					sessionIDs[string(resp)] = nil
+					sessionIDs[string(resp)] = string(" ")
 				}
 			}
 		}
