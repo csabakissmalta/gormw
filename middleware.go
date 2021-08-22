@@ -123,14 +123,12 @@ func process(buf []byte) {
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
-				resp := get_session_id(ele)
-				Debug("--- :REQ ID ", sessionIDs)
-				if len(resp) > 4 {
-					ridval, exist := sessionIDs[reqID]
-					if exist {
-						Debug("--- GETTING NEW COOKIE: ", ridval)
-						ridval.new = ele
-					}
+				// resp := get_session_id(ele)
+				// Debug("--- :REQ ID ", sessionIDs)
+				ridval, exist := sessionIDs[reqID]
+				if exist {
+					Debug("--- GETTING NEW COOKIE: ", ridval)
+					ridval.new = ele
 				}
 			}
 		}
