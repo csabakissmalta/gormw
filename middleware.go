@@ -11,13 +11,18 @@ import (
 	"github.com/csabakissmalta/gormw/proto"
 )
 
+type old_to_new struct {
+	old string
+	new []string
+}
+
 // requestID -> originalToken
-var sessionIDs map[string][]string
+var sessionIDs map[string]old_to_new
 
 // var cntr int = 0
 
 func main() {
-	sessionIDs = make(map[string][]string)
+	sessionIDs = make(map[string]old_to_new)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -84,11 +89,18 @@ func process(buf []byte) {
 				resp := get_session_id_from_cookie(ele)
 				Debug(string(resp))
 				if len(resp) > 4 {
-					if value, ok := sessionIDs[string(resp)]; ok {
-						// set the new header
-						new_cookie := create_cookie_value_from_list(value)
-						Debug("--- NC: ", new_cookie)
-						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+					// if value, ok := sessionIDs[string(resp)]; ok {
+					// 	// set the new header
+					// 	new_cookie := create_cookie_value_from_list(value)
+					// 	Debug("--- NC: ", new_cookie)
+					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+					// }
+					for _, val := range sessionIDs {
+						if val.old == resp {
+							new_cookie := create_cookie_value_from_list(val.new)
+							Debug("--- NC: ", new_cookie)
+							proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+						}
 					}
 				}
 			}
@@ -102,7 +114,7 @@ func process(buf []byte) {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
 					// Debug(string(resp))
-					sessionIDs[reqID] = ele
+					sessionIDs[reqID] = old_to_new{old: resp}
 				}
 			}
 		}
@@ -114,8 +126,7 @@ func process(buf []byte) {
 				// Debug("--- GETTING NEW COOKIE: ", resp)
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[reqID]; ok {
-						sessionIDs[reqID] = value
-						// Debug("--- GETTING NEW COOKIE: ", value)
+						value.new = ele
 					}
 				}
 			}
