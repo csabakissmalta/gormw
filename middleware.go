@@ -118,9 +118,9 @@ func process(buf []byte) {
 		}
 		// os.Stdout.Write(encode(buf))
 	case '2':
-		// Debug("o o o o o o o o o o o ", reqID)
-		if _, ok := sessionIDs[reqID]; ok {
-			Debug("---- REQ PATH", req_path)
+		Debug("ORIG_REQUEST ID: ", reqID)
+		if v, ok := sessionIDs[reqID]; ok {
+			Debug("---- REQ PATH", req_path, v)
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
