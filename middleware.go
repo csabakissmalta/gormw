@@ -88,6 +88,7 @@ func process(buf []byte) {
 		req_path := proto.Path(payload)
 		if strings.Contains(string(req_path), "turboLogin") {
 			sessionIDs[reqID] = old_to_new{}
+			Debug(string(reqID))
 		}
 
 		for key, ele := range hs {
