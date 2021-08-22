@@ -108,7 +108,7 @@ func process(buf []byte) {
 					// Debug(val.new)
 					if strings.Compare(val.old, resp) == 0 {
 						new_cookie := create_cookie_value_from_list(val.new)
-						Debug("--- NC: ", new_cookie)
+						// Debug("--- NC: ", new_cookie)
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 						// 	// }
 					}
@@ -135,7 +135,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = old_to_new{new: ele}
 				}
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
+			Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
