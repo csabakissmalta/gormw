@@ -69,11 +69,11 @@ func create_cookie_value_from_list(lst []string) string {
 func process(buf []byte) {
 	payloadType := buf[0]
 	headerSize := bytes.IndexByte(buf, '\n') + 1
-	// header := buf[:headerSize-1]
+	header := buf[:headerSize-1]
 
 	// Header contains space separated values of: request type, request id, and request start time (or round-trip time for responses)
-	// meta := bytes.Split(header, []byte(" "))
-	// reqID := string(meta[1])
+	meta := bytes.Split(header, []byte(" "))
+	reqID := string(meta[1])
 	payload := buf[headerSize:]
 
 	switch payloadType {
@@ -101,8 +101,8 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
-					Debug(string(resp))
-					sessionIDs[string(resp)] = []string{}
+					// Debug(string(resp))
+					sessionIDs[reqID] = []string{}
 				}
 			}
 		}
@@ -113,7 +113,7 @@ func process(buf []byte) {
 				resp := get_session_id(ele)
 				// Debug("--- GETTING NEW COOKIE: ", resp)
 				if len(resp) > 4 {
-					if value, ok := sessionIDs[string(resp)]; ok {
+					if value, ok := sessionIDs[reqID]; ok {
 						sessionIDs[string(resp)] = value
 						// Debug("--- GETTING NEW COOKIE: ", value)
 					}
