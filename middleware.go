@@ -116,7 +116,7 @@ func process(buf []byte) {
 				if len(resp) > 11 {
 					Debug("- - - - - - - - - - - - ", string(resp))
 					sessionIDs[reqID] = old_to_new{old: resp}
-					Debug("+ + + + + + + + + + + + ", string(resp))
+					Debug("+ + + + + + + + + + + + ", sessionIDs[reqID])
 				}
 			}
 		}
