@@ -105,15 +105,16 @@ func process(buf []byte) {
 				for _, val := range sessionIDs {
 					// Debug("compare oldvals : ", strings.Compare(val.old, resp))
 					// if strings.Compare(val.old, resp) == 0 {
-					if val.old == resp {
-						Debug("GOTCHA")
-					}
+					// if val.old == resp {
+					Debug(val.old, resp)
+					// }
 					// 	new_cookie := create_cookie_value_from_list(val.new)
 					// 	// Debug("--- NC: ", new_cookie)
 					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					// 	// 	// }
 					// }
 				}
+				Debug("-------------------")
 			}
 			break
 		}
