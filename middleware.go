@@ -30,14 +30,14 @@ func main() {
 	}
 }
 
-func get_session_id(ele []string) (response *string) {
+func get_session_id(ele []string) string {
 	for _, v := range ele {
 		if strings.Contains(v, "SESSION_ID") {
 			ret := v
-			return &ret
+			return ret
 		}
 	}
-	return nil
+	return ""
 }
 
 func process(buf []byte) {
@@ -59,8 +59,8 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
-				if resp != nil {
-					sessionIDs[*resp] = nil
+				if len(resp) > 0 {
+					sessionIDs[resp] = nil
 				}
 			}
 		}
@@ -69,8 +69,8 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
-				if resp != nil {
-					if value, ok := sessionIDs[*resp]; ok {
+				if len(resp) > 0 {
+					if value, ok := sessionIDs[resp]; ok {
 						fmt.Println("value: ", value)
 					} else {
 						fmt.Println("key not found")
