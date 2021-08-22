@@ -33,8 +33,8 @@ func main() {
 func get_session_id(ele []string) string {
 	for _, v := range ele {
 		if strings.Contains(v, "SESSION_ID") {
-			ret := v
-			return ret
+			Debug("::: SESSION_ID", v)
+			return v
 		}
 	}
 	return ""
