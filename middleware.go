@@ -90,7 +90,7 @@ func process(buf []byte) {
 	case '1':
 		if strings.Contains(string(req_path), "urboLogin") {
 			sessionIDs[reqID] = old_to_new{}
-			Debug(string(body))
+			// Debug(string(body))
 		}
 
 		for key, _ := range hs {
@@ -116,18 +116,18 @@ func process(buf []byte) {
 				// }
 			}
 		}
-		os.Stdout.Write(encode(buf))
+		// os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("o o o o o o o o o o o ", reqID)
 		if _, ok := sessionIDs[reqID]; ok {
 			Debug("---- REQ PATH", req_path)
-			// for key, ele := range hs {
-			// 	if key == "Set-Cookie" {
-			// 		resp := get_session_id(ele)
-			// 		sessionIDs[reqID] = old_to_new{old: resp}
-			// 		Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
-			// 	}
-			// }
+			for key, ele := range hs {
+				if key == "Set-Cookie" {
+					resp := get_session_id(ele)
+					sessionIDs[reqID] = old_to_new{old: resp}
+					Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
+				}
+			}
 		}
 		// os.Stdout.Write(encode(buf))
 	case '3':
