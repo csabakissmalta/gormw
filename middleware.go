@@ -95,7 +95,7 @@ func process(buf []byte) {
 
 		for key, _ := range hs {
 			if key == "Cookie" {
-				Debug("-> Not a turboLogin", string(req_path))
+				// Debug("-> Not a turboLogin", string(req_path))
 				// resp := get_session_id_from_cookie(ele)
 				// Debug(string(resp))
 				// if len(resp) > 11 {
@@ -118,35 +118,28 @@ func process(buf []byte) {
 		}
 		// os.Stdout.Write(encode(buf))
 	case '2':
-		Debug("ORIG_REQUEST ID: ", string(req_path))
+		Debug("ORIG_REQUEST ID: ", string(reqID))
 		if v, ok := sessionIDs[reqID]; ok {
 			Debug("---- REQ PATH", req_path, v)
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
 					sessionIDs[reqID] = old_to_new{old: resp}
-					Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
 				}
 			}
 		}
 		// os.Stdout.Write(encode(buf))
 	case '3':
-		// if _, ok := sessionIDs[reqID]; ok {
-		for key, _ := range hs {
-			if key == "Set-Cookie" {
-				// resp := get_session_id(ele)
-				// Debug("--- :REQ ID ", sessionIDs)
-				_, exist := sessionIDs[reqID]
-				if exist {
+		if _, ok := sessionIDs[reqID]; ok {
+			for key, _ := range hs {
+				if key == "Set-Cookie" {
+					// resp := get_session_id(ele)
+					// Debug("--- :REQ ID ", sessionIDs)
 					Debug("x x x x x x x x x x x ", sessionIDs[reqID])
-					// Debug("= = = = = = = = = = = ", ele)
-					// Debug("--- GETTING NEW COOKIE: ", ridval)
-					// ridval.new = ele
 				}
 			}
+			// Debug(":: Status: ", string(proto.Status(payload)))
 		}
-		// Debug(":: Status: ", string(proto.Status(payload)))
-		// }
 	}
 }
 
