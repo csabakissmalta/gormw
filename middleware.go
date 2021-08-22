@@ -94,7 +94,7 @@ func process(buf []byte) {
 
 		for key, _ := range hs {
 			if key == "Cookie" {
-				Debug("-> Not a turboLogin", req_path)
+				Debug("-> Not a turboLogin", string(req_path))
 				// resp := get_session_id_from_cookie(ele)
 				// Debug(string(resp))
 				// if len(resp) > 11 {
