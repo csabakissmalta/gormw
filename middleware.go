@@ -87,7 +87,7 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
-		if strings.Contains(string(req_path), "turboLogin") {
+		if strings.Contains(string(req_path), "/v1/tpapi/cafes/turboLogin") {
 			sessionIDs[reqID] = old_to_new{}
 			Debug(sessionIDs[reqID])
 		}
