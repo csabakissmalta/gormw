@@ -41,14 +41,19 @@ func get_session_id(ele []string) string {
 	return ""
 }
 
-func get_session_id_from_cookie(ele string) string {
-	if strings.Contains(ele, "SESSION_ID") {
-		// Debug("::: SESSION_ID", v)
-		clean_raw_v := strings.Split(ele, ";")[0]
-		return clean_raw_v
-	} else {
-		return ""
+func get_session_id_from_cookie(ele []string) string {
+	for _, v := range ele {
+		if strings.Contains(v, "SESSION_ID") {
+			// Debug("::: SESSION_ID", v)
+			for _, val := range strings.Split(v, ";") {
+				if strings.Contains(val, "SESSION_ID") {
+					return val
+				}
+			}
+
+		}
 	}
+	return ""
 }
 
 func create_cookie_value_from_list(lst []string) string {
@@ -76,8 +81,8 @@ func process(buf []byte) {
 		hs := proto.ParseHeaders(payload)
 		for key, ele := range hs {
 			if key == "Cookie" {
-				resp := get_session_id(ele)
-				Debug(string(resp))
+				resp := get_session_id_from_cookie(ele)
+
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
 						// set the new header
