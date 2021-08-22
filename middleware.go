@@ -118,14 +118,14 @@ func process(buf []byte) {
 	case '2':
 		// Debug("o o o o o o o o o o o ", reqID)
 		if _, ok := sessionIDs[reqID]; ok {
-			// Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
-			for key, ele := range hs {
-				if key == "Set-Cookie" {
-					resp := get_session_id(ele)
-					sessionIDs[reqID] = old_to_new{old: resp}
-					Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
-				}
-			}
+			Debug("---- REQ PATH", req_path)
+			// for key, ele := range hs {
+			// 	if key == "Set-Cookie" {
+			// 		resp := get_session_id(ele)
+			// 		sessionIDs[reqID] = old_to_new{old: resp}
+			// 		Debug("- - - - - - - - - - - - ", sessionIDs[reqID])
+			// 	}
+			// }
 		}
 		// os.Stdout.Write(encode(buf))
 	case '3':
