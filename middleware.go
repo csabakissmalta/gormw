@@ -59,8 +59,8 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
-				if len(resp) > 0 {
-					sessionIDs[resp] = nil
+				if len(resp) > 4 {
+					sessionIDs[string(resp)] = nil
 				}
 			}
 		}
@@ -69,8 +69,8 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
-				if len(resp) > 0 {
-					if value, ok := sessionIDs[resp]; ok {
+				if len(resp) > 4 {
+					if value, ok := sessionIDs[string(resp)]; ok {
 						fmt.Println("value: ", value)
 					} else {
 						fmt.Println("key not found")
