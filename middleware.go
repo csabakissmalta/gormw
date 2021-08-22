@@ -80,7 +80,6 @@ func process(buf []byte) {
 		for key, ele := range hs {
 			Debug(">> REPLAY ", string(key), ele)
 		}
-		Debug("HDR: ", string(hdr))
 		Debug("---------------- REPLAY ----------------")
 	}
 }
