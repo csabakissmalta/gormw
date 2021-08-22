@@ -62,18 +62,23 @@ func process(buf []byte) {
 		}
 
 	case '2':
+		req_path := proto.Path(payload)
+		if strings.Contains(string(req_path), "turboLogin") {
+			Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
+			os.Stdout.Write(encode(buf))
+		}
 		// hs := proto.ParseHeaders(payload)
 		// for key, ele := range hs {
 		// 	Debug(">> ORIG RESP:", string(key), ele)
 		// }
 	case '3':
 		// stat := proto.Status(payload)
-		hdr := proto.Header(payload, []byte("Access-Control-Request-Headers"))
-		hs := proto.ParseHeaders(payload)
-		for key, ele := range hs {
-			Debug(">> REPLAY ", string(key), ele)
-		}
-		Debug("HDR: ", string(hdr))
+		hdr := proto.Header(payload, []byte("Set-Cookie"))
+		// hs := proto.ParseHeaders(payload)
+		// for key, ele := range hs {
+		// 	Debug(">> REPLAY ", string(key), ele)
+		// }
+		Debug("HDR: ", string(hdr[len(hdr)-1]))
 		Debug("---------------- REPLAY ----------------")
 	}
 }
