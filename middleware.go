@@ -12,12 +12,12 @@ import (
 )
 
 // requestID -> originalToken
-var sessionIDs map[string]string
+var sessionIDs map[string][]string
 
 // var cntr int = 0
 
 func main() {
-	sessionIDs = make(map[string]string)
+	sessionIDs = make(map[string][]string)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -40,6 +40,16 @@ func get_session_id(ele []string) string {
 	return ""
 }
 
+func create_cookie_value_from_list(lst []string) string {
+	raw := *new([]string)
+	for _, v := range lst {
+		// append(raw, strings.Split(v, ";")[0])
+		raw = append(raw, strings.Split(v, ";")[0])
+	}
+	res := strings.Join(raw, ";")
+	return res
+}
+
 func process(buf []byte) {
 	payloadType := buf[0]
 	headerSize := bytes.IndexByte(buf, '\n') + 1
@@ -52,6 +62,18 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
+		hs := proto.ParseHeaders(payload)
+		for key, ele := range hs {
+			if key == "Cookie" {
+				resp := get_session_id(ele)
+				if len(resp) > 4 {
+					if value, ok := sessionIDs[string(resp)]; ok {
+						// set the new header
+						proto.SetHeader(payload, []byte("Cookie"), []byte(create_cookie_value_from_list(value)))
+					}
+				}
+			}
+		}
 		os.Stdout.Write(encode(buf))
 	case '2':
 		Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
@@ -60,7 +82,7 @@ func process(buf []byte) {
 			if key == "Set-Cookie" {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
-					sessionIDs[string(resp)] = string(" ")
+					sessionIDs[string(resp)] = *new([]string)
 				}
 			}
 		}
@@ -71,9 +93,7 @@ func process(buf []byte) {
 				resp := get_session_id(ele)
 				if len(resp) > 4 {
 					if value, ok := sessionIDs[string(resp)]; ok {
-						fmt.Println("value: ", value)
-					} else {
-						fmt.Println("key not found")
+						sessionIDs[string(resp)] = value
 					}
 				}
 			}
