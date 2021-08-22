@@ -94,8 +94,7 @@ func process(buf []byte) {
 
 		for key, ele := range hs {
 			if key == "Cookie" {
-				Debug("-> Not a turboLogin", string(req_path))
-				// Debug(string(resp))
+
 				// if len(resp) > 11 {
 				// if value, ok := sessionIDs[string(resp)]; ok {
 				// 	// set the new header
@@ -104,6 +103,7 @@ func process(buf []byte) {
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
 				resp := get_session_id_from_cookie(ele)
+				Debug(string(resp))
 				for _, val := range sessionIDs {
 					// Debug(val.new)
 
