@@ -126,9 +126,10 @@ func process(buf []byte) {
 				resp := get_session_id(ele)
 				Debug("--- :REQ ID ", reqID)
 				if len(resp) > 4 {
-					if value, ok := sessionIDs[reqID]; ok {
-						Debug("--- GETTING NEW COOKIE: ", ele)
-						value.new = ele
+					ridval, exist := sessionIDs[reqID]
+					if exist {
+						Debug("--- GETTING NEW COOKIE: ", ridval)
+						ridval.new = ele
 					}
 				}
 			}
