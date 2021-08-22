@@ -109,6 +109,7 @@ func process(buf []byte) {
 		}
 		os.Stdout.Write(encode(buf))
 	case '2':
+		Debug("o o o o o o o o o o o ", reqID)
 		if _, ok := sessionIDs[reqID]; ok {
 			// Debug("---- THIS IS TURBOLOGIN ORIG RESPONSE ----")
 			for key, ele := range hs {
@@ -122,7 +123,7 @@ func process(buf []byte) {
 			}
 		}
 	case '3':
-		Debug("x x x x x x x x x x x ", sessionIDs[reqID])
+		Debug("x x x x x x x x x x x ", reqID)
 		// Debug("= = = = = = = = = = = ", ele)
 		// if _, ok := sessionIDs[reqID]; ok {
 		// for key, ele := range hs {
