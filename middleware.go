@@ -84,12 +84,13 @@ func process(buf []byte) {
 	hs := proto.ParseHeaders(payload)
 
 	req_path := proto.Path(payload)
+	body := proto.Body(payload)
 
 	switch payloadType {
 	case '1':
-		if strings.Contains(string(req_path), "/v1/tpapi/cafes/turboLogin") {
+		if strings.Contains(string(req_path), "urboLogin") {
 			sessionIDs[reqID] = old_to_new{}
-			Debug(sessionIDs[reqID])
+			Debug(string(body))
 		}
 
 		for key, _ := range hs {
