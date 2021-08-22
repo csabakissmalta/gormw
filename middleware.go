@@ -39,7 +39,6 @@ func get_session_id(ele []string) string {
 	for _, v := range ele {
 		if strings.Contains(v, "SESSION_ID") {
 			clean_raw_v := strings.Split(v, ";")[0]
-			Debug("::: SESSION_ID", clean_raw_v)
 			return clean_raw_v
 		}
 	}
@@ -130,6 +129,7 @@ func process(buf []byte) {
 		}
 		// os.Stdout.Write(encode(buf))
 	case '3':
+		Debug("::: SESSION_ID", sessionIDs[reqID])
 		if _, ok := sessionIDs[reqID]; ok {
 			for key, _ := range hs {
 				if key == "Set-Cookie" {
