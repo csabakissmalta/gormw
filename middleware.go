@@ -94,12 +94,24 @@ func process(buf []byte) {
 
 		for key, ele := range hs {
 			if key == "Cookie" {
+				// Debug("-> Not a turboLogin", string(req_path))
+				// Debug(string(resp))
+				// if len(resp) > 11 {
+				// if value, ok := sessionIDs[string(resp)]; ok {
+				// 	// set the new header
+				// 	new_cookie := create_cookie_value_from_list(value)
+				// 	Debug("--- NC: ", new_cookie)
+				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+				// }
 				resp := get_session_id_from_cookie(ele)
 				for _, val := range sessionIDs {
+					// Debug(val.new)
+
 					if strings.Compare(val.old, resp) == 0 {
 						new_cookie := create_cookie_value_from_list(val.new)
-						Debug("--- NC: ", new_cookie)
+						// Debug("--- NC: ", new_cookie)
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+						// 	// }
 					}
 				}
 			}
@@ -107,11 +119,13 @@ func process(buf []byte) {
 		}
 		os.Stdout.Write(encode(buf))
 	case '2':
+		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if _, ok := sessionIDs[reqID]; ok {
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
 					sessionIDs[reqID] = old_to_new{old: resp}
+					// Debug(sessionIDs[reqID])
 				}
 			}
 		}
@@ -123,7 +137,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = old_to_new{new: ele}
 				}
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
+			Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
