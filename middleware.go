@@ -111,7 +111,7 @@ func process(buf []byte) {
 				// Debug("-------------------")
 			}
 		}
-		os.Stdout.Write(encode(buf))
+		// os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if s_elem, ok := sessionIDs[reqID]; ok {
