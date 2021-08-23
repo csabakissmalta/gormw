@@ -102,6 +102,7 @@ func process(buf []byte) {
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
 				resp := get_session_id_from_cookie(ele)
+				Debug("sid from Cookie: ", resp)
 				for _, val := range sessionIDs {
 					if val.old == resp {
 						Debug("- - -")
@@ -135,7 +136,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = s_elem
 				}
 			}
-			Debug(":: Status: ", string(proto.Status(payload)))
+			// Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
