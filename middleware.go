@@ -122,21 +122,23 @@ func process(buf []byte) {
 		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
-		if _, ok := sessionIDs[reqID]; ok {
+		if s_elem, ok := sessionIDs[reqID]; ok {
 			for key, ele := range hs {
 				if key == "Set-Cookie" {
 					resp := get_session_id(ele)
-					sessionIDs[reqID] = old_to_new{old: resp}
+					s_elem.old = resp
+					sessionIDs[reqID] = s_elem
 					// Debug(sessionIDs[reqID])
 				}
 			}
 		}
 		os.Stdout.Write(encode(buf))
 	case '3':
-		if _, ok := sessionIDs[reqID]; ok {
-			for key, _ := range hs {
+		if s_elem, ok := sessionIDs[reqID]; ok {
+			for key, ele := range hs {
 				if key == "Set-Cookie" {
-					// sessionIDs[reqID] = old_to_new{new: ele}
+					s_elem.new = ele
+					sessionIDs[reqID] = s_elem
 				}
 			}
 			// Debug(":: Status: ", string(proto.Status(payload)))
