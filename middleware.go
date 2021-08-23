@@ -102,11 +102,11 @@ func process(buf []byte) {
 						new_cookie := create_cookie_value_from_list(val.new)
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 						buf = append(buf[:headerSize], payload...)
-						os.Stdout.Write(encode(buf))
 					}
 				}
 			}
 		}
+		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if s_elem, ok := sessionIDs[reqID]; ok {
