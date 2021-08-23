@@ -92,7 +92,7 @@ func process(buf []byte) {
 			// Debug(string(body))
 		}
 
-		for key, _ := range hs {
+		for key, ele := range hs {
 			if key == "Cookie" {
 				// if len(resp) > 11 {
 				// if value, ok := sessionIDs[string(resp)]; ok {
@@ -101,11 +101,13 @@ func process(buf []byte) {
 				// 	Debug("--- NC: ", new_cookie)
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
-				// resp := get_session_id_from_cookie(ele)
+				resp := get_session_id_from_cookie(ele)
 				for _, val := range sessionIDs {
-					Debug("- - -")
-					new_cookie := create_cookie_value_from_list(val.new)
-					proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+					if val.old == resp {
+						Debug("- - -")
+						new_cookie := create_cookie_value_from_list(val.new)
+						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+					}
 				}
 				Debug("-------------------")
 			}
