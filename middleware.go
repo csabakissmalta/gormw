@@ -75,7 +75,6 @@ func process(buf []byte) {
 	headerSize := bytes.IndexByte(buf, '\n') + 1
 	header := buf[:headerSize-1]
 
-	// Header contains space separated values of: request type, request id, and request start time (or round-trip time for responses)
 	meta := bytes.Split(header, []byte(" "))
 	reqID := string(meta[1])
 	payload := buf[headerSize:]
@@ -106,10 +105,8 @@ func process(buf []byte) {
 						os.Stdout.Write(encode(buf))
 					}
 				}
-				// Debug("-------------------")
 			}
 		}
-		// os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if s_elem, ok := sessionIDs[reqID]; ok {
@@ -118,7 +115,6 @@ func process(buf []byte) {
 					resp := get_session_id(ele)
 					s_elem.old = resp
 					sessionIDs[reqID] = s_elem
-					// Debug(sessionIDs[reqID])
 				}
 			}
 		}
@@ -131,10 +127,6 @@ func process(buf []byte) {
 					sessionIDs[reqID] = s_elem
 				}
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
-			// if int(proto.Status(payload)) >= 400 {
-
-			// }
 		}
 	}
 }
