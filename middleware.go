@@ -92,7 +92,7 @@ func process(buf []byte) {
 			// Debug(string(body))
 		}
 
-		for key, ele := range hs {
+		for key, _ := range hs {
 			if key == "Cookie" {
 				// if len(resp) > 11 {
 				// if value, ok := sessionIDs[string(resp)]; ok {
@@ -101,12 +101,13 @@ func process(buf []byte) {
 				// 	Debug("--- NC: ", new_cookie)
 				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				// }
-				resp := get_session_id_from_cookie(ele)
+				// resp := get_session_id_from_cookie(ele)
 				for _, val := range sessionIDs {
 					// Debug("compare oldvals : ", strings.Compare(val.old, resp))
 					// if strings.Compare(val.old, resp) == 0 {
 					// if val.old == resp {
-					Debug(val.old, resp)
+					Debug(val.old, val.new)
+					Debug("- - -")
 					// }
 					// 	new_cookie := create_cookie_value_from_list(val.new)
 					// 	// Debug("--- NC: ", new_cookie)
@@ -146,7 +147,7 @@ func process(buf []byte) {
 // --------------------------------------------------------------------------
 func Debug(args ...interface{}) {
 	if os.Getenv("GOR_TEST") == "" {
-		fmt.Fprint(os.Stderr, "[DEBUG][TOKEN-MOD] ")
+		fmt.Fprint(os.Stderr, "[DEBUG] [sid-MOD] ")
 		fmt.Fprintln(os.Stderr, args...)
 	}
 }
