@@ -94,7 +94,7 @@ func process(buf []byte) {
 
 		for key, ele := range hs {
 			if strings.Compare(key, "Cookie") == 0 {
-				Debug("sid from Cookie: ", ele)
+
 				// if len(resp) > 11 {
 				// if value, ok := sessionIDs[string(resp)]; ok {
 				// 	// set the new header
@@ -104,6 +104,7 @@ func process(buf []byte) {
 				// }
 				resp := get_session_id_from_cookie(ele)
 				resp = strings.TrimRight(resp, "\n")
+				Debug("sid from Cookie: ", resp)
 				// Debug("sid from Cookie: ", resp)
 				for _, val := range sessionIDs {
 					old := strings.TrimRight(val.old, "\n")
