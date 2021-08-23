@@ -106,7 +106,7 @@ func process(buf []byte) {
 					// Debug("compare oldvals : ", strings.Compare(val.old, resp))
 					// if strings.Compare(val.old, resp) == 0 {
 					// if val.old == resp {
-					Debug("ORIG: ", val.old, "\nNEW: ", val.new)
+					Debug("\nORIG: ", val.old, "\nNEW: ", val.new)
 					Debug("- - -")
 					// }
 					// 	new_cookie := create_cookie_value_from_list(val.new)
@@ -134,9 +134,9 @@ func process(buf []byte) {
 		os.Stdout.Write(encode(buf))
 	case '3':
 		if _, ok := sessionIDs[reqID]; ok {
-			for key, ele := range hs {
+			for key, _ := range hs {
 				if key == "Set-Cookie" {
-					sessionIDs[reqID] = old_to_new{new: ele}
+					// sessionIDs[reqID] = old_to_new{new: ele}
 				}
 			}
 			// Debug(":: Status: ", string(proto.Status(payload)))
