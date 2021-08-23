@@ -106,7 +106,7 @@ func process(buf []byte) {
 					// Debug("compare oldvals : ", strings.Compare(val.old, resp))
 					// if strings.Compare(val.old, resp) == 0 {
 					// if val.old == resp {
-					Debug(val.old, val.new)
+					Debug("ORIG: ", val.old, "\nNEW: ", val.new)
 					Debug("- - -")
 					// }
 					// 	new_cookie := create_cookie_value_from_list(val.new)
