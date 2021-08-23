@@ -103,7 +103,7 @@ func process(buf []byte) {
 				// }
 				resp := get_session_id_from_cookie(ele)
 				resp = strings.TrimRight(resp, "\n")
-				Debug("sid from Cookie: ", resp)
+				// Debug("sid from Cookie: ", resp)
 				for _, val := range sessionIDs {
 					old := strings.TrimRight(val.old, "\n")
 					if strings.Compare(old, resp) == 0 {
@@ -112,7 +112,7 @@ func process(buf []byte) {
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 					}
 				}
-				Debug("-------------------")
+				// Debug("-------------------")
 			}
 			break
 		}
@@ -129,7 +129,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		os.Stdout.Write(encode(buf))
+		// os.Stdout.Write(encode(buf))
 	case '3':
 		if s_elem, ok := sessionIDs[reqID]; ok {
 			for key, ele := range hs {
@@ -138,7 +138,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = s_elem
 				}
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
+			Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
