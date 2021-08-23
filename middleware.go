@@ -94,14 +94,6 @@ func process(buf []byte) {
 
 		for key, ele := range hs {
 			if strings.Compare(key, "Cookie") == 0 {
-
-				// if len(resp) > 11 {
-				// if value, ok := sessionIDs[string(resp)]; ok {
-				// 	// set the new header
-				// 	new_cookie := create_cookie_value_from_list(value)
-				// 	Debug("--- NC: ", new_cookie)
-				// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-				// }
 				resp := get_session_id_from_cookie(ele)
 				resp = strings.TrimRight(resp, "\n")
 				Debug("sid from Cookie: ", resp)
@@ -112,10 +104,11 @@ func process(buf []byte) {
 						Debug("- - -")
 						new_cookie := create_cookie_value_from_list(val.new)
 						proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
+						buf = append(buf[:headerSize], payload...)
+						os.Stdout.Write(encode(buf))
 					}
 				}
 				// Debug("-------------------")
-				os.Stdout.Write(encode(buf))
 			}
 		}
 
