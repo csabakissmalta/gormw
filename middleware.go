@@ -87,7 +87,7 @@ func process(buf []byte) {
 
 	switch payloadType {
 	case '1':
-		if strings.Contains(string(req_path), "urboLogin") {
+		if strings.Contains(string(req_path), "turboLogin") {
 			sessionIDs[reqID] = *new(old_to_new)
 			// Debug(string(body))
 		}
@@ -129,7 +129,7 @@ func process(buf []byte) {
 				}
 			}
 		}
-		// os.Stdout.Write(encode(buf))
+		os.Stdout.Write(encode(buf))
 	case '3':
 		if s_elem, ok := sessionIDs[reqID]; ok {
 			for key, ele := range hs {
