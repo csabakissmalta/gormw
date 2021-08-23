@@ -103,17 +103,9 @@ func process(buf []byte) {
 				// }
 				// resp := get_session_id_from_cookie(ele)
 				for _, val := range sessionIDs {
-					// Debug("compare oldvals : ", strings.Compare(val.old, resp))
-					// if strings.Compare(val.old, resp) == 0 {
-					// if val.old == resp {
-					Debug("\nORIG: ", val.old, "\nNEW: ", val.new)
 					Debug("- - -")
-					// }
-					// 	new_cookie := create_cookie_value_from_list(val.new)
-					// 	// Debug("--- NC: ", new_cookie)
-					// 	proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
-					// 	// 	// }
-					// }
+					new_cookie := create_cookie_value_from_list(val.new)
+					proto.SetHeader(payload, []byte("Cookie"), []byte(new_cookie))
 				}
 				Debug("-------------------")
 			}
@@ -141,7 +133,7 @@ func process(buf []byte) {
 					sessionIDs[reqID] = s_elem
 				}
 			}
-			// Debug(":: Status: ", string(proto.Status(payload)))
+			Debug(":: Status: ", string(proto.Status(payload)))
 		}
 	}
 }
