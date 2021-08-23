@@ -96,7 +96,7 @@ func process(buf []byte) {
 			if strings.Compare(key, "Cookie") == 0 {
 				resp := get_session_id_from_cookie(ele)
 				resp = strings.TrimRight(resp, "\n")
-				Debug("sid from Cookie: ", resp)
+				// Debug("sid from Cookie: ", resp)
 				// Debug("sid from Cookie: ", resp)
 				for _, val := range sessionIDs {
 					old := strings.TrimRight(val.old, "\n")
@@ -111,7 +111,7 @@ func process(buf []byte) {
 				// Debug("-------------------")
 			}
 		}
-
+		os.Stdout.Write(encode(buf))
 	case '2':
 		// Debug("ORIG_REQUEST ID: ", string(reqID))
 		if s_elem, ok := sessionIDs[reqID]; ok {
